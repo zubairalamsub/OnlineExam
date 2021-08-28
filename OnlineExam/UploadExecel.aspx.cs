@@ -1,9 +1,11 @@
 ﻿using OfficeOpenXml;
+using OnlineExam.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,6 +17,16 @@ namespace OnlineExam
         {
 
         }
+        [WebMethod]
+		//public static string SavePage(List<Question> myArray1, List<Options> myArray2)
+		public static string SavePage(string name)
+		{
+			var f = name;
+			var m = name;
+
+
+			return "1";
+        }
         //protected void Button1_Click(object sender, EventArgs e)
         //{
         //    if (FileUpload1.HasFile)  //fileupload control contains a file  
@@ -24,7 +36,7 @@ namespace OnlineExam
         //            {
         //                FileUpload1
         //            }
-                      
+
         //            FileUpload1.SaveAs("E:\\" + FileUpload1.FileName);          // file path where you want to upload  
         //            Label1.Text = "File Uploaded Sucessfully !! " + FileUpload1.PostedFile.ContentLength + "mb";     // get the size of the uploaded file  
         //        }

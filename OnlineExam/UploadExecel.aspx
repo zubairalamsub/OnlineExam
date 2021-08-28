@@ -36,7 +36,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
     <script type="text/javascript">
         var app = angular.module('MyApp', ['ngFileUpload'])
-        app.controller('MyController', function ($scope, $window) {
+        app.controller('MyController', function ($scope,$http) {
             $scope.SelectFile = function (file) {
                 $scope.SelectedFile = file;
             };
@@ -64,10 +64,10 @@
                             reader.readAsArrayBuffer($scope.SelectedFile);
                         }
                     } else {
-                        $window.alert("This browser does not support HTML5.");
+                       alert("This browser does not support HTML5.");
                     }
                 } else {
-                    $window.alert("Please upload a valid Excel file.");
+                    alert("Please upload a valid Excel file.");
                 }
             };
 
@@ -96,6 +96,24 @@
 
                 console.log(excelRows);
                 console.log(SndexcelRows);
+				var post = $http({
+					method: "POST",
+					url: "uploadexecel.aspx/savepage",
+					dataType: 'json',
+					//data: "{'myArray1':"+JSON.stringify(excelRows)+",'myArray2':"+JSON.stringify(SndexcelRows)+"}",
+
+					data: { name: 'Zubair'},
+					headers: { "Content-Type": "application/json" }
+				});
+
+				post.success(function (data, status) {
+					console.log(data.d);
+				});
+
+				post.error(function (data, status) {
+					console.log(data.Message);
+				});
+			
 
 
                 //Display the data from Excel file in Table.
@@ -105,7 +123,7 @@
                 });
             };
         });
-    </script>
+	</script>
     <div ng-app="MyApp" ng-controller="MyController">
         <input type="file" ngf-select="SelectFile($file)" />
         <input type="button" value="Upload" ng-click="Upload()" />
